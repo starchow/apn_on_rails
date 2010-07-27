@@ -3,8 +3,8 @@ require 'openssl'
 require 'configatron'
 
 rails_root = File.join(FileUtils.pwd, 'rails_root')
-if defined?(RAILS_ROOT)
-  rails_root = RAILS_ROOT
+if defined?(Rails.root)
+  rails_root = Rails.root
 end
 
 rails_env = 'development'
