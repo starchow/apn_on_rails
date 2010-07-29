@@ -18,9 +18,9 @@ class APN::Notification < APN::Base
   include ::ActionView::Helpers::TextHelper
   extend ::ActionView::Helpers::TextHelper
   serialize :custom_properties
-  
+
   belongs_to :device, :class_name => 'APN::Device'
-  
+
   # Stores the text alert message you want to send to the device.
   # 
   # If the message is over 150 characters long it will get truncated
@@ -31,7 +31,7 @@ class APN::Notification < APN::Base
     end
     write_attribute('alert', message)
   end
-  
+
   # Creates a Hash that will be the payload of an APN.
   # 
   # Example:
@@ -63,7 +63,7 @@ class APN::Notification < APN::Base
     end
     result
   end
-  
+
   # Creates the JSON string required for an APN message.
   # 
   # Example:
@@ -75,7 +75,7 @@ class APN::Notification < APN::Base
   def to_apple_json
     self.apple_hash.to_json
   end
-  
+
   # Creates the binary message needed to send to Apple.
   def message_for_sending
     json = self.to_apple_json
@@ -83,9 +83,9 @@ class APN::Notification < APN::Base
     raise APN::Errors::ExceededMessageSizeError.new(message) if message.size.to_i > 256
     message
   end
-  
+
   class << self
-    
+
     # Opens a connection to the Apple APN server and attempts to batch deliver
     # an Array of notifications.
     # 
@@ -111,7 +111,7 @@ class APN::Notification < APN::Base
 
       end
     end
-    
+
   end # class << self
-  
+
 end # APN::Notification
