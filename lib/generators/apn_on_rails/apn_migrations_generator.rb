@@ -8,6 +8,7 @@ require 'rails/generators/active_record'
 
 class ApnMigrationsGenerator < Rails::Generators::Base
   argument :name, :default => "migration"
+  @timestamp = Time.now.utc.strftime("%Y%m%d%H%M%S")
   include Rails::Generators::Migration
   
   def self.source_root
@@ -15,17 +16,14 @@ class ApnMigrationsGenerator < Rails::Generators::Base
   end
   
   def self.next_migration_number(dirname)
-     if ActiveRecord::Base.timestamped_migrations
-       Time.now.utc.strftime("%Y%m%d%H%M%S")
-     else
-       "%.3d" % (current_migration_number(dirname) + 1)
-     end
+    @timestamp = @timestamp.succ
+    @timestamp
   end
   
   def create_migrations
-    migration_template '001_create_apn_devices.rb', 'db/migrate/001_create_apn_devices.rb'
-    migration_template '002_create_apn_notifications.rb', 'db/migrate/002_create_apn_notifications.rb'
-    migration_template '003_alter_apn_devices.rb', 'db/migrate/003_alter_apn_devices.rb'
+    migration_template '001_create_apn_devices.rb', 'db/migrate/create_apn_devices.rb'
+    migration_template '002_create_apn_notifications.rb', 'db/migrate/create_apn_notifications.rb'
+    migration_template '003_alter_apn_devices.rb', 'db/migrate/alter_apn_devices.rb'
   end
   
-end # ApnMigrationsGenerator
+end
