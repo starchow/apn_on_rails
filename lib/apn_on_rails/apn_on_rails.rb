@@ -4,6 +4,7 @@ require 'configatron'
 
 module ApnOnRails
   class Railtie < Rails::Railtie
+    root_path = File.expand_path(File.join(File.dirname(__FILE__), '../..'))
     initializer 'configuration' do |app|
       configatron.apn.set_default(:passphrase, '')
       configatron.apn.set_default(:port, 2195)
@@ -24,6 +25,9 @@ module ApnOnRails
         configatron.apn.feedback.set_default(:host, 'feedback.sandbox.push.apple.com')
         configatron.apn.feedback.set_default(:cert, configatron.apn.cert)
       end
+    end
+    generators do
+      require File.join(root_path, 'lib/generators/apn_on_rails/apn_migrations_generator')
     end
   end
 end
