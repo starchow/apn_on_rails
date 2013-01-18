@@ -20,7 +20,9 @@ class APN::Notification < APN::Base
   serialize :custom_properties
 
   belongs_to :device, :class_name => 'APN::Device'
-
+  
+  attr_accessible :device_id, :errors_nb, :device_language, :sound, :alert, :badge,
+                  :custom_properties, :sent_at
   # Stores the text alert message you want to send to the device.
   # 
   # If the message is over 150 characters long it will get truncated

@@ -16,7 +16,8 @@ class APN::Device < APN::Base
   validates_format_of :token, :with => /^[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}$/
 
   before_save :set_last_registered_at
-
+  
+  attr_accessible :token
   # The <tt>feedback_at</tt> accessor is set when the 
   # device is marked as potentially disconnected from your
   # application by Apple.
